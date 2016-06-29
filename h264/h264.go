@@ -2,9 +2,9 @@ package h264
 
 import (
 	"bufio"
+	"github.com/oikomi/go_h264/nalu"
 	"log"
 	"os"
-	"github.com/oikomi/go_h264/nalu"
 )
 
 type H264FileHandler struct {
@@ -17,19 +17,19 @@ func New() *H264FileHandler {
 	return fh
 }
 
-func FindStartCode3 (b []byte) int {
-	if(b[0]!=0 || b[1]!=0 || b[2] !=1) {
+func FindStartCode3(b []byte) int {
+	if b[0] != 0 || b[1] != 0 || b[2] != 1 {
 		return 0
 	} else {
 		return 1
 	}
 }
 
-func FindStartCode4 (b []byte){
-	if (b[0]!=0 || b[1]!=0 || b[2] !=0 || b[3] !=1) {
-		return 0;//0x00000001?
+func FindStartCode4(b []byte) {
+	if b[0] != 0 || b[1] != 0 || b[2] != 0 || b[3] != 1 {
+		return 0 //0x00000001?
 	} else {
-		return 1;
+		return 1
 	}
 }
 
@@ -62,10 +62,10 @@ func (self *H264FileHandler) Seek(offset int64, whence int) error {
 	return nil
 }
 
-func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.Nalu) (err error){
+func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.Nalu) (err error) {
 	var (
-		b []byte
-		pos int64
+		b                                 []byte
+		pos, StartCodeFound, info3, info4 int64
 	)
 	if b, err = self.Read(3); err != nil {
 		log.Fatalln(err.Error())
@@ -81,7 +81,11 @@ func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.Nalu) (err error){
 		} else {
 			pos = 4
 		}
+	} else {
+		pos = 3
 	}
+
+	
+
+	return
 }
-
-
