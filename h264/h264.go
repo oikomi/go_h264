@@ -62,7 +62,7 @@ func (self *H264FileHandler) Seek(offset int64, whence int) error {
 	return nil
 }
 
-func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.Nalu) (err error) {
+func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.NALU) (err error) {
 	var (
 		b                                 []byte
 		pos, StartCodeFound, info3, info4 int64
@@ -85,7 +85,7 @@ func (self *H264FileHandler) GetAnnexbNALU(nalu *nalu.Nalu) (err error) {
 		pos = 3
 	}
 
-	
+
 
 	return
 }

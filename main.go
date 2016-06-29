@@ -22,7 +22,7 @@ func main() {
 		log.Fatalln(err.Error())
 	}
 
-	nalu := &nalu.Nalu{}
+	nalu := &nalu.NALU{}
 	fh.GetAnnexbNALU(nalu)
 	fmt.Println(nalu)
 }
